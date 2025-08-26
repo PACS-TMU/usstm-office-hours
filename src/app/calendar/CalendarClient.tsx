@@ -12,13 +12,11 @@ export default function CalendarClient({
     const router = useRouter();
     const sp = useSearchParams();
 
-    // Week (YYYY-MM-DD) for "this week" in LOCAL time
     const todayWeekISO = useMemo(
         () => toDateOnlyLocal(startOfISOWeek(new Date())),
         []
     );
 
-    // Current week shown (prefer URL param, fallback to prop)
     const currentWeek = sp.get("week") ?? weekStartISO;
 
     const pushWeek = (weekISO: string) => {
@@ -28,12 +26,11 @@ export default function CalendarClient({
     };
 
     const go = (delta: number) => {
-        // delta 0 means: jump to "this week"
         if (delta === 0) {
             pushWeek(todayWeekISO);
             return;
         }
-        const next = addWeeksFromISO(currentWeek, delta); // local-safe add
+        const next = addWeeksFromISO(currentWeek, delta);
         pushWeek(next);
     };
 
@@ -42,7 +39,7 @@ export default function CalendarClient({
     return (
         <>
             <WeekToolbar
-                weekStartISO={currentWeek} // show the week currently in the URL
+                weekStartISO={currentWeek}
                 onPrev={() => go(-1)}
                 onNext={() => go(1)}
             />
@@ -51,7 +48,7 @@ export default function CalendarClient({
                     <button
                         type="button"
                         onClick={() => go(0)}
-                        className="inline-flex items-center mx-auto px-3 py-1 rounded bg-highlight text-white hover:bg-highlight-dark transition"
+                        className="inline-flex items-center w-full sm:w-auto justify-center px-3 py-2 rounded bg-highlight text-white hover:bg-highlight-dark transition text-sm"
                     >
                         Back to This Week
                     </button>

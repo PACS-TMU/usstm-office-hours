@@ -25,8 +25,10 @@ export default async function ShiftsPage({
     ]);
 
     return (
-        <main className="max-w-5xl mx-auto p-6">
-            <h1 className="text-2xl font-bold mb-4">My Shift Schedule</h1>
+        <main className="mx-auto max-w-5xl px-4 sm:px-6 py-6 sm:py-8">
+            <h1 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4">
+                My Shift Schedule
+            </h1>
             <PlannerClient
                 weekStartISO={startISO}
                 grid={cells}
