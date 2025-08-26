@@ -1,0 +1,46 @@
+@import "tailwindcss";
+
+@theme {
+    --color-background: #fafafa;
+    --color-foreground: #1e1e1e;
+    --color-highlight: #3e8989;
+    --color-highlight-dark: #002956;
+    --color-highlight-blue: #e1e8f5;
+}
+
+html {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    margin: 0;
+    padding: 0;
+}
+
+h1:not(#not-found h1),
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: bold;
+    font-size: larger;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+a:not(nav a):not(#dashboard a):not(#finance a):not(#upcoming-events a):not(#not-found a) {
+    color: var(--color-highlight);
+    text-decoration: underline;
+}
+
+a:hover:not(nav a):not(#dashboard a):not(#finance a):not(#upcoming-events a):not(#not-found a) {
+    transition: ease-in-out 0.2s;
+    color: var(--color-highlight-dark);
+}
+
+main {
+    position: relative;
+    max-width: 1440px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
