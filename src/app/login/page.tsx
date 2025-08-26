@@ -12,16 +12,24 @@ export default async function Login(props: {
 
     if (user) {
         // User is logged in, redirect to dashboard
-        redirect("/dashboard");
+        redirect("/calendar");
     }
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-theme-background">
-            <h1 className="sr-only">USSTM Portal Login</h1>
+            <h1 className="sr-only">USSTM Office Hours Login</h1>
             <div className="w-full max-w-md bg-white rounded-lg shadow-lg p-8">
                 <h2 className="text-2xl font-bold text-theme-primary mb-6 text-center">
-                    Log into the USSTM Portal
+                    USSTM Office Hours Portal Login
                 </h2>
+                <p className="text-sm text-gray-600 text-center mb-6">
+                    This page is restricted only to USSTM board members to schedule their office hours in EPH 443.
+                    If you would like to see the public calendar, please visit the{" "}
+                    <a href="/calendar" className="text-blue-500 hover:underline">
+                        Calendar
+                    </a>{" "}
+                    page.
+                </p>
                 <form className="space-y-5" method="post">
                     <div>
                         <label
@@ -65,7 +73,7 @@ export default async function Login(props: {
                     </SubmitButton>
                 </form>
                 <div className="flex justify-between items-center mt-6">
-                    <span className="text-sm">Don't have an account?</span>
+                    <span className="text-sm">Don&apos;t have an account?</span>
                     <a href="mailto:vp.operations@usstm.ca;tech@usstm.ca" target="_blank" className="font-medium">
                         Contact Us!
                     </a>

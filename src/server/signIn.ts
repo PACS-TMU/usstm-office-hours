@@ -7,6 +7,18 @@ export default async function signIn(formData: FormData) {
     const password = formData.get("password") as string;
     const supabase = await createClient();
 
+    const { data: usstmData, error: usstmError } = await supabase
+        .from("usstm_board")
+        .select("*")
+        .eq("email", email)
+        .single();
+
+    if (usstmError || !usstmData) {
+        return redirect(
+            "/login?error=User not found in USSTM board. Please contact us to ensure that you are properly added to the system."
+        );
+    }
+
     const { error } = await supabase.auth.signInWithPassword({
         email,
         password,
@@ -18,17 +30,5 @@ export default async function signIn(formData: FormData) {
         );
     }
 
-    const { data: userData, error: userError } = await supabase
-        .from('users')
-        .select('*')
-        .eq('email', email)
-        .single();
-
-    if (userError || !userData) {
-        return redirect(
-            "/login?error=User not found. Please contact us to ensure that you are properly added to the system."
-        );
-    }
-
-    return redirect("/dashboard");
+    return redirect("/calendar");
 }
