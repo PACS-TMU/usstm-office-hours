@@ -9,7 +9,7 @@ import { createClient } from "@/lib/supabase/server";
 export default async function CalendarPage({
     searchParams,
 }: {
-    searchParams: { week?: string };
+    searchParams: Promise<{ week?: string }>;
 }) {
     const { week } = await searchParams;
     const base = week ? new Date(week + "T00:00:00") : new Date();
