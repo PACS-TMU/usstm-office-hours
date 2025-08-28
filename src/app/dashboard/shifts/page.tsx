@@ -5,6 +5,7 @@ import {
     requireBoardMember,
 } from "@/server/ohActions";
 import PlannerClient from "./PlannerClient";
+import { Suspense } from "react";
 
 export default async function ShiftsPage({
     searchParams,
@@ -29,11 +30,13 @@ export default async function ShiftsPage({
             <h1 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4">
                 My Shift Schedule
             </h1>
-            <PlannerClient
-                weekStartISO={startISO}
-                grid={cells}
-                myShifts={myShifts}
-            />
+            <Suspense fallback={<div>Loading...</div>}>
+                <PlannerClient
+                    weekStartISO={startISO}
+                    grid={cells}
+                    myShifts={myShifts}
+                />
+            </Suspense>
         </main>
     );
 }

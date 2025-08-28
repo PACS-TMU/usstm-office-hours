@@ -5,6 +5,7 @@ import { startOfISOWeek, addDays, toDateOnlyLocal } from "@/lib/dates";
 import CalendarClient from "./CalendarClient";
 import CalendarGrid from "@/components/calendar/CalendarGrid";
 import { createClient } from "@/lib/supabase/server";
+import { Suspense } from "react";
 
 export default async function CalendarPage({
     searchParams,
@@ -52,7 +53,9 @@ export default async function CalendarPage({
                 </p>
             )}
 
-            <CalendarClient weekStartISO={startISO} />
+            <Suspense fallback={<div>Loading...</div>}>
+                <CalendarClient weekStartISO={startISO} />
+            </Suspense>
             <CalendarGrid cells={cells} />
         </main>
     );

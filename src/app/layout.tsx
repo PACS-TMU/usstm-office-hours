@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import "./globals.css";
 import MessageAcceptor from "@/components/general/messageAcceptor";
+import { Suspense } from "react";
 
 const defaultUrl = process.env.NEXT_PUBLIC_BASE_URL
     ? `https://${process.env.NEXT_PUBLIC_BASE_URL}`
@@ -29,7 +30,9 @@ export default function RootLayout({
         <html lang="en">
             <body className={`${geistSans.className} antialiased`}>
                 {children}
-                <MessageAcceptor />
+                <Suspense fallback={<div>Loading...</div>}>
+                    <MessageAcceptor />
+                </Suspense>
             </body>
         </html>
     );
