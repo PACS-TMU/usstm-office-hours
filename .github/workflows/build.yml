@@ -10,6 +10,9 @@ on:
 #     - dev
 #     - main
 
+env:
+  NEXT_PUBLIC_BASE_URL: "https://office.usstm.ca"
+
 jobs:
   build:
     name: Build static website
@@ -22,4 +25,4 @@ jobs:
       - name: Upload static website
         uses: actions/upload-pages-artifact@v3
         with:
-          path: out/
+          path: .next/
