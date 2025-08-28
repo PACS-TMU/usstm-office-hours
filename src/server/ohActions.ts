@@ -59,50 +59,50 @@ export async function getMyWeekShifts(startISO: string) {
     return data ?? [];
 }
 
-// server/ohActions.ts (add these helpers near the top)
-const toLocalYMD = (d: Date) =>
-  `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
-
 const startOfWeek = (d: Date) => {
-  const day = d.getDay() || 7;
-  const r = new Date(d);
-  r.setDate(d.getDate() - day + 1);
-  r.setHours(0,0,0,0);
-  return r;
+    const day = d.getDay() || 7;
+    const r = new Date(d);
+    r.setDate(d.getDate() - day + 1);
+    r.setHours(0, 0, 0, 0);
+    return r;
 };
 
 function isBookableClientWindow(dateISO: string, maxWeeks = 2) {
-  const [y,m,d] = dateISO.split("-").map(Number);
-  const target = new Date(y, m-1, d);
-  const today = new Date();
-  today.setHours(0,0,0,0);
+    const [y, m, d] = dateISO.split("-").map(Number);
+    const target = new Date(y, m - 1, d);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
 
-  // past?
-  if (target < today) return false;
+    // past?
+    if (target < today) return false;
 
-  const curStart = startOfWeek(today);
-  const newStart = startOfWeek(target);
-  const diffWeeks = Math.floor((newStart.getTime() - curStart.getTime()) / (7*86400000));
-  return diffWeeks <= (maxWeeks - 1);
+    const curStart = startOfWeek(today);
+    const newStart = startOfWeek(target);
+    const diffWeeks = Math.floor(
+        (newStart.getTime() - curStart.getTime()) / (7 * 86400000)
+    );
+    return diffWeeks <= maxWeeks - 1;
 }
 
 /** Book a shift (RLS + triggers enforce rules) */
 export async function bookShift(shiftDateISO: string, slotId: number) {
-  const supabase = await createClient();
-  await requireBoardMember();
+    const supabase = await createClient();
+    await requireBoardMember();
 
-  // mirror DB rule for nicer errors (keep this value in sync with DB setting)
-  const MAX_WEEKS = 2;
-  if (!isBookableClientWindow(shiftDateISO, MAX_WEEKS)) {
-    fail("You can only book the current week and next week.");
-  }
+    // mirror DB rule for nicer errors (keep this value in sync with DB setting)
+    const MAX_WEEKS = 2;
+    if (!isBookableClientWindow(shiftDateISO, MAX_WEEKS)) {
+        fail("You can only book the current week and next week.");
+    }
 
-  const { error } = await supabase
-    .from("oh_shifts")
-    .insert({ member_id: (await getCurrentUser()).id, shift_date: shiftDateISO, slot_id: slotId });
+    const { error } = await supabase.from("oh_shifts").insert({
+        member_id: (await getCurrentUser()).id,
+        shift_date: shiftDateISO,
+        slot_id: slotId,
+    });
 
-  if (error) fail(error.message);
-  ok("Shift booked.");
+    if (error) fail(error.message);
+    ok("Shift booked.");
 }
 
 /** Remove my shift */

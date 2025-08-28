@@ -6,6 +6,7 @@ import WeekToolbar from "@/components/calendar/WeekToolbar";
 import CalendarGrid from "@/components/calendar/CalendarGrid";
 import { bookShift, unbookShift } from "@/server/ohActions";
 import { addWeeksFromISO, startOfISOWeek, toDateOnlyLocal } from "@/lib/dates";
+import type { CalendarCell } from "@/lib/types";
 
 export default function PlannerClient({
     weekStartISO,
@@ -13,7 +14,7 @@ export default function PlannerClient({
     myShifts,
 }: {
     weekStartISO: string;
-    grid: any[];
+    grid: CalendarCell[];
     myShifts: { id: string; shift_date: string; slot_id: number }[];
 }) {
     const [isPending, startTransition] = useTransition();

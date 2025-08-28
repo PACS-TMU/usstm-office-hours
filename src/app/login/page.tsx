@@ -4,11 +4,11 @@ import CopyEmailButton from "@/components/general/copyEmail";
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 
-export default async function Login(props: {
-    searchParams: Promise<{ message: string }>;
-}) {
+export default async function Login() {
     const supabase = await createClient();
-    const { data: { user } } = await supabase.auth.getUser();
+    const {
+        data: { user },
+    } = await supabase.auth.getUser();
 
     if (user) {
         // User is logged in, redirect to dashboard
@@ -23,9 +23,13 @@ export default async function Login(props: {
                     USSTM Office Hours Portal Login
                 </h2>
                 <p className="text-sm text-gray-600 text-center mb-6">
-                    This page is restricted only to USSTM board members to schedule their office hours in EPH 443.
-                    If you would like to see the public calendar, please visit the{" "}
-                    <a href="/calendar" className="text-blue-500 hover:underline">
+                    This page is restricted only to USSTM board members to
+                    schedule their office hours in EPH 443. If you would like to
+                    see the public calendar, please visit the{" "}
+                    <a
+                        href="/calendar"
+                        className="text-blue-500 hover:underline"
+                    >
                         Calendar
                     </a>{" "}
                     page.
@@ -74,7 +78,11 @@ export default async function Login(props: {
                 </form>
                 <div className="flex justify-between items-center mt-6">
                     <span className="text-sm">Don&apos;t have an account?</span>
-                    <a href="mailto:vp.operations@usstm.ca;tech@usstm.ca" target="_blank" className="font-medium">
+                    <a
+                        href="mailto:vp.operations@usstm.ca;tech@usstm.ca"
+                        target="_blank"
+                        className="font-medium"
+                    >
                         Contact Us!
                     </a>
                 </div>
