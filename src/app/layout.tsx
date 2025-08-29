@@ -10,7 +10,7 @@ const defaultUrl = process.env.NEXT_PUBLIC_BASE_URL
 
 export const metadata: Metadata = {
     metadataBase: new URL(defaultUrl),
-    title: "USSTM Portal",
+    title: "USSTM Office Hours",
     description:
         "The Undergraduate Science Society (USSTM) Portal - You can find all the important links and details here for your USSTM student groups.",
 };
