@@ -8,6 +8,8 @@ import { bookShift, unbookShift } from "@/server/ohActions";
 import { addWeeksFromISO, startOfISOWeek, toDateOnlyLocal } from "@/lib/dates";
 import type { CalendarCell } from "@/lib/types";
 
+const MAX_SHIFTS = 5;
+
 export default function PlannerClient({
     weekStartISO,
     grid,
@@ -98,7 +100,7 @@ export default function PlannerClient({
             />
 
             <div className="text-xs sm:text-sm text-gray-600 text-center">
-                You have picked <b>{picked}</b> / 2 shifts this week.
+                You have picked <b>{picked}</b> / {MAX_SHIFTS} shifts this week.
             </div>
 
             <CalendarGrid
